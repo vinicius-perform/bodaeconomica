@@ -3,6 +3,15 @@ import { CheckIcon } from './Icons';
 import { CONFIG } from '../config';
 
 export const UpgradeModal = ({ isOpen, onClose }) => {
+  const trackCheckout = (value) => {
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'InitiateCheckout', {
+        value: value,
+        currency: 'USD'
+      });
+    }
+  };
+
   // Previne rolagem do fundo quando o modal está aberto
   useEffect(() => {
     if (isOpen) {
@@ -108,6 +117,7 @@ export const UpgradeModal = ({ isOpen, onClose }) => {
           {/* Botão de Ação Principal (Aceitar com Desconto) */}
           <a 
             href={CONFIG.LINK_CHECKOUT_DESCONTO}
+            onClick={() => trackCheckout(9.90)}
             className="block w-full py-4 bg-boda-accent hover:bg-yellow-400 text-boda-wine font-black text-center text-sm md:text-base rounded-2xl uppercase tracking-wider transition-all duration-200 border-b-4 border-yellow-600 shadow-md hover:shadow-lg pulse-custom mb-3.5"
           >
             🔥 SÍ, MEJORAR AL PLAN COMPLETO
@@ -116,6 +126,7 @@ export const UpgradeModal = ({ isOpen, onClose }) => {
           {/* Link Discreto (Recusar e ir para o Básico de $5) */}
           <a 
             href={CONFIG.LINK_CHECKOUT_BASICO}
+            onClick={() => trackCheckout(5.00)}
             className="text-xs text-boda-text-muted hover:text-boda-wine underline decoration-dotted transition-colors duration-200 py-1"
           >
             No, gracias. Prefiero quedarme con el Plan Básico por US$ 5

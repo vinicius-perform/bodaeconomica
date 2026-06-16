@@ -6,6 +6,15 @@ import { UpgradeModal } from './UpgradeModal';
 export const OfferSection = () => {
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
 
+  const trackCheckout = (value) => {
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'InitiateCheckout', {
+        value: value,
+        currency: 'USD'
+      });
+    }
+  };
+
   return (
     <section id="ofertas" className="bg-boda-blue-light/50 py-16 px-4 flex flex-col items-center">
       <div className="w-full max-w-3xl">
@@ -147,6 +156,7 @@ export const OfferSection = () => {
               {/* Botão Plano Completo */}
               <a 
                 href={CONFIG.LINK_CHECKOUT_COMPLETO}
+                onClick={() => trackCheckout(12.90)}
                 className="block w-full py-4 bg-boda-accent hover:bg-yellow-400 text-boda-wine font-black text-center text-sm md:text-base rounded-xl uppercase tracking-wider transition-all duration-200 border-b-4 border-yellow-600 shadow-md pulse-custom"
               >
                 ¡SÍ! QUIERO EL PLAN COMPLETO
