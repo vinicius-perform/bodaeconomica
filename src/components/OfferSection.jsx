@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CheckIcon } from './Icons';
 import { CONFIG } from '../config';
+import { UpgradeModal } from './UpgradeModal';
 
 export const OfferSection = () => {
+  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+
   return (
     <section id="ofertas" className="bg-boda-blue-light/50 py-16 px-4 flex flex-col items-center">
       <div className="w-full max-w-3xl">
@@ -56,12 +59,12 @@ export const OfferSection = () => {
               </div>
 
               {/* Botão Plano Básico */}
-              <a 
-                href={CONFIG.LINK_CHECKOUT_BASICO}
-                className="block w-full py-3 bg-gray-100 hover:bg-gray-200 text-boda-text-dark font-extrabold text-center text-xs md:text-sm rounded-xl uppercase tracking-wider transition-all duration-200"
+              <button 
+                onClick={() => setIsUpgradeModalOpen(true)}
+                className="block w-full py-3 bg-gray-100 hover:bg-gray-200 text-boda-text-dark font-extrabold text-center text-xs md:text-sm rounded-xl uppercase tracking-wider transition-all duration-200 cursor-pointer"
               >
                 QUIERO ESTA OPCIÓN
-              </a>
+              </button>
             </div>
           </div>
 
@@ -154,6 +157,10 @@ export const OfferSection = () => {
         </div>
 
       </div>
+      <UpgradeModal 
+        isOpen={isUpgradeModalOpen} 
+        onClose={() => setIsUpgradeModalOpen(false)} 
+      />
     </section>
   );
 };
